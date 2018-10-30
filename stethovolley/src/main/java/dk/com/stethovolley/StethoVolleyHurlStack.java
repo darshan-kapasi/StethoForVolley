@@ -41,10 +41,7 @@ import javax.net.ssl.SSLSocketFactory;
 /**
  * Created by darshan.kapasi on 29-10-2018.
  */
-/**
- * An {@link BaseHttpStack} based on {@link HttpURLConnection}.
- */
-public class TenoHurlStack extends BaseHttpStack
+public class StethoVolleyHurlStack extends BaseHttpStack
 {
 	private static final int HTTP_CONTINUE = 100;
 	
@@ -63,7 +60,7 @@ public class TenoHurlStack extends BaseHttpStack
 	private final com.android.volley.toolbox.HurlStack.UrlRewriter mUrlRewriter;
 	private final SSLSocketFactory                                 mSslSocketFactory;
 	
-	public TenoHurlStack()
+	public StethoVolleyHurlStack()
 	{
 		this(null);
 	}
@@ -71,7 +68,7 @@ public class TenoHurlStack extends BaseHttpStack
 	/**
 	 * @param urlRewriter Rewriter to use for request URLs
 	 */
-	public TenoHurlStack(com.android.volley.toolbox.HurlStack.UrlRewriter urlRewriter)
+	public StethoVolleyHurlStack(com.android.volley.toolbox.HurlStack.UrlRewriter urlRewriter)
 	{
 		this(urlRewriter, null);
 	}
@@ -80,7 +77,7 @@ public class TenoHurlStack extends BaseHttpStack
 	 * @param urlRewriter      Rewriter to use for request URLs
 	 * @param sslSocketFactory SSL factory to use for HTTPS connections
 	 */
-	public TenoHurlStack(com.android.volley.toolbox.HurlStack.UrlRewriter urlRewriter, SSLSocketFactory sslSocketFactory)
+	public StethoVolleyHurlStack(com.android.volley.toolbox.HurlStack.UrlRewriter urlRewriter, SSLSocketFactory sslSocketFactory)
 	{
 		mUrlRewriter = urlRewriter;
 		mSslSocketFactory = sslSocketFactory;
