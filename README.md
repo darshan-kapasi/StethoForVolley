@@ -10,16 +10,16 @@ To use it, add the following lines in build.gradle
 Step 1. Add it in your root build.gradle at the end of repositories:
 ```gradle
 allprojects {
-		repositories {
-			...
-			maven { url 'https://jitpack.io' }
-		}
+	repositories {
+		...
+		maven { url 'https://jitpack.io' }
 	}
+}
 ```
 Step 2. Add the dependency
 ```gradle
 dependencies {
-   implementation 'com.github.darshan-kapasi:StethoForVolley:1.1'
+   implementation 'com.github.darshan-kapasi:StethoForVolley:1.2'
 }
 ```
 # Inspecting Volley Request
