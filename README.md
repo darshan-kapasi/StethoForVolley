@@ -1,4 +1,4 @@
-# Stetho-Volley
+# StethoForVolley
 Volley 1.1.0 Network Call Inspection library for Stetho.
 
 Inspect your volley network requests without OkHttp Layer using Stetho Url-Connection.
