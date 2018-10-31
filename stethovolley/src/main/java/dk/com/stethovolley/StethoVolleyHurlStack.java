@@ -15,7 +15,6 @@ package dk.com.stethovolley;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.Header;
 import com.android.volley.Request;
@@ -38,6 +37,7 @@ import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSocketFactory;
+
 /**
  * Created by darshan.kapasi on 29-10-2018.
  */
@@ -121,13 +121,13 @@ public class StethoVolleyHurlStack extends BaseHttpStack
 				// Signal to the caller that something was wrong with the connection.
 				throw new IOException("Could not retrieve response code from HttpUrlConnection.");
 			}
-			connectionManager.postConnect();
+			postConnect(connectionManager);
 			if (!hasResponseBody(request.getMethod(), responseCode))
 			{
 				return new HttpResponse(responseCode, convertHeaders(connection.getHeaderFields()));
 			}
 			InputStream responseStream = inputStreamFromConnection(connection);
-			//intercept response action
+			//intercept response stream
 			InputStream interpretResponseStream = connectionManager.interpretResponseStream(responseStream);
 			return new HttpResponse(responseCode, convertHeaders(connection.getHeaderFields()),
 					connection.getContentLength(), interpretResponseStream);
@@ -254,11 +254,11 @@ public class StethoVolleyHurlStack extends BaseHttpStack
 				// Not necessary to set the request method because connection defaults to GET but
 				// being explicit here.
 				connection.setRequestMethod("GET");
-				connectionManager.preConnect(connection, new ByteArrayRequestEntity(request.getBody()));
+				preConnect(connectionManager, connection, null);
 				break;
 			case Method.DELETE:
 				connection.setRequestMethod("DELETE");
-				connectionManager.preConnect(connection, new ByteArrayRequestEntity(request.getBody()));
+				preConnect(connectionManager, connection, null);
 				break;
 			case Method.POST:
 				connection.setRequestMethod("POST");
@@ -270,15 +270,15 @@ public class StethoVolleyHurlStack extends BaseHttpStack
 				break;
 			case Method.HEAD:
 				connection.setRequestMethod("HEAD");
-				connectionManager.preConnect(connection, new ByteArrayRequestEntity(request.getBody()));
+				preConnect(connectionManager, connection, null);
 				break;
 			case Method.OPTIONS:
 				connection.setRequestMethod("OPTIONS");
-				connectionManager.preConnect(connection, new ByteArrayRequestEntity(request.getBody()));
+				preConnect(connectionManager, connection, null);
 				break;
 			case Method.TRACE:
 				connection.setRequestMethod("TRACE");
-				connectionManager.preConnect(connection, new ByteArrayRequestEntity(request.getBody()));
+				preConnect(connectionManager, connection, null);
 				break;
 			case Method.PATCH:
 				connection.setRequestMethod("PATCH");
@@ -309,13 +309,13 @@ public class StethoVolleyHurlStack extends BaseHttpStack
 		/*connection.addRequestProperty(
 				HttpHeaderParser.HEADER_CONTENT_TYPE, request.getBodyContentType());*/
 		connection.addRequestProperty("Content-Type", request.getBodyContentType());
-		connectionManager.preConnect(connection, new ByteArrayRequestEntity(body));
+		preConnect(connectionManager, connection, new ByteArrayRequestEntity(body));
 		DataOutputStream out = new DataOutputStream(connection.getOutputStream());
 		out.write(body);
 		out.close();
 	}
 	
-	private void preConnect(StethoURLConnectionManager manager, HttpURLConnection connection, SimpleRequestEntity requestEntity)
+	private static void preConnect(StethoURLConnectionManager manager, HttpURLConnection connection, SimpleRequestEntity requestEntity)
 	{
 		manager.preConnect(connection, requestEntity);
 	}

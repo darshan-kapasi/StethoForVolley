@@ -19,7 +19,7 @@ allprojects {
 Step 2. Add the dependency
 ```gradle
 dependencies {
-   implementation 'com.github.darshan-kapasi:StethoForVolley:1.2'
+   implementation 'com.github.darshan-kapasi:StethoForVolley:1.2.1'
 }
 ```
 # Inspecting Volley Request
