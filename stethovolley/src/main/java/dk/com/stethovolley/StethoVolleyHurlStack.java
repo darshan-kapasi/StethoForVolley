@@ -297,6 +297,10 @@ public class StethoVolleyHurlStack extends BaseHttpStack
 		{
 			addBody(connectionManager, connection, request, body);
 		}
+		else
+		{
+			preConnect(connectionManager, connection, null);
+		}
 	}
 	
 	private static void addBody(StethoURLConnectionManager connectionManager, HttpURLConnection connection, Request<?> request, byte[] body)
